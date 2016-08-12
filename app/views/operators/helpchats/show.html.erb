@@ -1,0 +1,14 @@
+<div data-behavior='messages' data-helpchat-id='<%= helpchat.id %>'>
+  <% helpchat.messages.each do |message| %>
+    <%= render message.decorate %>
+  <% end %>
+</div>
+
+<%= form_for [helpchat, Message.new], remote: true do |f| %>
+  <%= f.hidden_field :owner, value: TRUE %>
+  <%= f.text_area :body, rows: 1, class: "form-control", autofocus: true %>
+<% end %>
+
+
+<br />
+<%= link_to "Complete this Help Chat", operators_helpchat_close_path(helpchat.id) %>

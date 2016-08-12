@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>helpchats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @helpchats.each do |helpchat| %>
+      <tr>
+        <td><%= helpchat.name %></td>
+        <td><%= link_to 'Show', helpchat %></td>
+        <td><%= link_to 'Edit', edit_helpchat_path(helpchat) %></td>
+        <td><%= link_to 'Destroy', helpchat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Join", helpchat_customers_path(helpchat), method: :post %></td>
+        <td><%= link_to "Leave", helpchat_customers_path(helpchat), method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New helpchat', new_helpchat_path %>

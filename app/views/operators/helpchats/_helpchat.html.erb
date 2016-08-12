@@ -1,0 +1,6 @@
+<% helpchats.each do |helpchat| %>
+  <div class="row">
+  Channel Name: <%= helpchat.name %> - <%= helpchat.state %> - Customer_id: <%= helpchat.customer_id %>
+   <%= link_to "Mark as complete", operators_helpchat_close_path(helpchat.id) %>
+  </div>
+<% end %>

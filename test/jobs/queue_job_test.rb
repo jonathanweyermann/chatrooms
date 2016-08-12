@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class helpchatUserTest < ActiveSupport::TestCase
+class QueueJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end
