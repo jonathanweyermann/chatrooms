@@ -1,10 +1,24 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :operators
+  devise_for :customers
 
-  resources :chatrooms do
-    resource :chatroom_users
+  resources :customers do
+    resources :helpchats do
+      get 'close'
+    end
+  end
+
+  namespace :operators do
+    resources :helpchats do
+      get 'close'
+    end
+  end
+
+  resources :helpchats do
+    get 'close'
     resources :messages
   end
 
-  root to: "chatrooms#index"
+
+  root to: "customers#show"
 end

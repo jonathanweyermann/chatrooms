@@ -1,21 +1,21 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_chatroom
+  before_action :authenticate_one
+  expose :message
 
   def create
-    message = @chatroom.messages.new(message_params)
-    message.user = current_user
+    message.helpchat_id = params[:helpchat_id]
+    message.customer = current_customer if current_customer
+    message.operator = current_operator if current_operator
     message.save
-    redirect_to @chatroom
+    MessageRelayJob.perform_later(message)
   end
 
   private
-
-    def set_chatroom
-      @chatroom = Chatroom.find(params[:chatroom_id])
+    def message_params
+      params.require(:message).permit(:body, :owner, :helpchat_id)
     end
 
-    def message_params
-      params.require(:message).permit(:body)
+    def authenticate_one
+      authenticate_customer! || authenticate_operator!
     end
 end

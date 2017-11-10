@@ -31,20 +31,20 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <% if customer_signed_in? %>
+            <% if operator_signed_in? %>
               <%= yield :right_nav %>
 
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_customer.try(:customername) %> <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_operator.username %> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to "Settings", edit_customer_registration_path %></li>
+                  <li><%= link_to "Settings", edit_operator_registration_path %></li>
                   <li role="separator" class="divider"></li>
-                  <li><%= link_to "Logout", destroy_customer_session_path, method: :delete %></li>
+                  <li><%= link_to "Logout", destroy_operator_session_path, method: :delete %></li>
                 </ul>
               </li>
             <% else %>
-              <li><%= link_to "Sign Up", new_customer_registration_path %></li>
-              <li><%= link_to "Login", new_customer_session_path %></li>
+              <li><%= link_to "Sign Up", new_operator_registration_path %></li>
+              <li><%= link_to "Login", new_operator_session_path %></li>
             <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -54,26 +54,20 @@
     <div class="fluid-container" style="margin-top: 70px">
       <div class="row">
         <div class="col-xs-6 col-sm-4" style="position: fixed; top: 70px; left: 0;">
-          <% if customer_signed_in? %>
-            <h5>Helpchats in queue</h5>
-            <ul>
-              <% current_customer.helpchats.in_queue.each do |helpchat| %>
-                <li><%= link_to helpchat.name, customer_helpchat_path(current_customer.id, helpchat.id) %></li>
-              <% end %>
-            </ul>
-            <h5>Helpchats in progress</h5>
-            <ul>
-              <% current_customer.helpchats.active.each do |helpchat| %>
-                <li><%= helpchat.name %></li>
-              <% end %>
-            </ul>
-            <h5>Helpchats in completed</h5>
-            <ul>
-              <% current_customer.helpchats.completed.each do |helpchat| %>
-                <li><%= helpchat.name %></li>
-              <% end %>
-            </ul>
-          <% end %>
+          <% if operator_signed_in? %>
+            <h5>Chat Queue</h5>
+            <div data-behavior='chat-request'>
+              <% if Helpchat.in_queue.present? %>
+                <ul>
+                  <% Helpchat.in_queue.each do |helpchat| %>
+                    <li><%= link_to helpchat.name, operators_helpchat_path(helpchat.id) %></li>
+                  <% end %>
+                </ul>
+               <% else %>
+                 <ul>here are no chat requests in queue</ul>
+               <% end %>
+             <% end %>
+           </div>
         </div>
 
         <div class="col-xs-6 col-xs-offset-6 col-sm-8 col-sm-offset-4">

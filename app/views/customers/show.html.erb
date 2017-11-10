@@ -1,0 +1,31 @@
+<p>
+  <strong>Name:</strong>
+  <%= customer.name %>
+</p>
+<p>
+  <strong>Membership Number:</strong>
+  <%= customer.membership_number %>
+</p>
+<p>
+  <strong>Desciption of Problem:</strong>
+  <%= customer.problem_description %>
+</p>
+
+<p><strong>Position in queue:</strong>
+  <div data-behavior='queue_number' data-customer-id='<%= customer.id %>'>
+    <strong><%= queue_number %><strong>
+  </div>
+</p>
+
+
+<%= form_for(helpchat) do |f| %>
+  <!-- Check for errors -->
+  <% if helpchat.errors.any? %>
+      <% helpchat.errors.full_messages.each do |msg| %>
+      <% end %>
+  <% end %>
+  <%= f.hidden_field(:name, value: DateTime.now.to_s) %>
+  <%= f.hidden_field(:customer_id, value: customer.id) %>
+  <%= f.hidden_field(:state, value: "in_queue") %>
+  <%= f.submit "Put in service request", class:'btn btn-primary' %>
+<% end %>

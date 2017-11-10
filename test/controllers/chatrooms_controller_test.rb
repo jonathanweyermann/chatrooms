@@ -1,48 +1,48 @@
 require 'test_helper'
 
-class ChatroomsControllerTest < ActionDispatch::IntegrationTest
+class helpchatsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @chatroom = chatrooms(:one)
+    @helpchat = helpchats(:one)
   end
 
   test "should get index" do
-    get chatrooms_url
+    get helpchats_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_chatroom_url
+    get new_helpchat_url
     assert_response :success
   end
 
-  test "should create chatroom" do
-    assert_difference('Chatroom.count') do
-      post chatrooms_url, params: { chatroom: { name: @chatroom.name } }
+  test "should create helpchat" do
+    assert_difference('helpchat.count') do
+      post helpchats_url, params: { helpchat: { name: @helpchat.name } }
     end
 
-    assert_redirected_to chatroom_url(Chatroom.last)
+    assert_redirected_to helpchat_url(helpchat.last)
   end
 
-  test "should show chatroom" do
-    get chatroom_url(@chatroom)
+  test "should show helpchat" do
+    get helpchat_url(@helpchat)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_chatroom_url(@chatroom)
+    get edit_helpchat_url(@helpchat)
     assert_response :success
   end
 
-  test "should update chatroom" do
-    patch chatroom_url(@chatroom), params: { chatroom: { name: @chatroom.name } }
-    assert_redirected_to chatroom_url(@chatroom)
+  test "should update helpchat" do
+    patch helpchat_url(@helpchat), params: { helpchat: { name: @helpchat.name } }
+    assert_redirected_to helpchat_url(@helpchat)
   end
 
-  test "should destroy chatroom" do
-    assert_difference('Chatroom.count', -1) do
-      delete chatroom_url(@chatroom)
+  test "should destroy helpchat" do
+    assert_difference('helpchat.count', -1) do
+      delete helpchat_url(@helpchat)
     end
 
-    assert_redirected_to chatrooms_url
+    assert_redirected_to helpchats_url
   end
 end

@@ -1,0 +1,3 @@
+<% helpchats.each do |helpchat| %>
+  <li><%= link_to helpchat.name, operators_helpchat_path(helpchat.id) %></li>
+<% end %>
